@@ -12,6 +12,7 @@
 #include "IC.h"
 #include "Encoder.h"
 #include "AD.h"
+#include "Serial.h"
 
 uint8_t KeyNum;
 uint8_t State;
@@ -21,6 +22,9 @@ int16_t Speed;
 
 int main(void)
 {
+	// 配置优先级分组，整个程序共用同一种模式
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	
 	OLED_Init();
 	Key_Init();
 	//LED_Init();
@@ -33,10 +37,14 @@ int main(void)
 	//IC_Init();
 	//Encoder_Init();
 	//AD_Init();
-	
+	Serial_Init();
+	Serial_TxPacket[0] = 0x10;
+	Serial_TxPacket[1] = 0x20;
+	Serial_TxPacket[2] = 0x30;
+	Serial_TxPacket[3] = 0x40;
 	while(1)
 	{
-		
+	
 	/*******************按键控制LED*********************/	
 		/* 
 		//这样写是错误的，能否点灯关灯看运气，看你的程序运行到了哪里，稍微分析一下就看出来了
@@ -162,12 +170,33 @@ int main(void)
 	/*******************DMA配合AD多通道*********************/
 	
 	
-	
-	
-	
-	
 	/*******************串口通讯*********************/
-	
+	/*
+	KeyNum = Key_GetNum();
+	if(KeyNum == 1)
+	{
+		// 发送数字测试
+		Serial_SendDigitalPacket();
+		Serial_TxPacket[0] ++;
+		Serial_TxPacket[1] ++;
+		Serial_TxPacket[2] ++;
+		Serial_TxPacket[3] ++;
+		
+		Serial_SendString("nihaoa,Captain\r\n");
+		printf("Num = %d\r\n", 666); // 需要再工程选项中打开 USE MicroLIB
+	}
+	if(Serial_GetReceiveFlag() == 1)
+	{
+		// 接收数字测试
+		OLED_ShowHexNum(1, 1, Serial_RxPacket[0], 2);
+		OLED_ShowHexNum(1, 4, Serial_RxPacket[1], 2);
+		OLED_ShowHexNum(1, 7, Serial_RxPacket[2], 2);
+		OLED_ShowHexNum(1, 10, Serial_RxPacket[3], 2);
+		
+		// 不需要自己清零标志位
+		OLED_ShowString(1, 1, Serial_RxString);
+	}
+	*/
 	/*******************串口通讯*********************/
 	
 	

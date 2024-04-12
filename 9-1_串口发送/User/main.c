@@ -76,7 +76,7 @@ int main(void)
 		这里已经在Serial.c文件中进行重写fputc函数，也就是重定向了printf
 		只适用于单个串口需要printf方法
 	*/
-	//printf("Num = %d\r\n", 666); 
+	printf("Num = %d\r\n", 666); 
 	
 	
 	/*

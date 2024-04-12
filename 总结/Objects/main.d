@@ -41,3 +41,5 @@
 .\objects\main.o: .\Hardware\IC.h
 .\objects\main.o: .\Hardware\Encoder.h
 .\objects\main.o: .\Hardware\AD.h
+.\objects\main.o: .\Hardware\Serial.h
+.\objects\main.o: F:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
